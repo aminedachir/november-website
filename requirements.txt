@@ -1,0 +1,14 @@
+Flask==2.3.2
+Flask-WTF==1.1.1
+WTForms==3.0.1
+Jinja2==3.1.2
+Werkzeug==2.3.7
+
+# Database (SQLite is built-in, but use this if you're using SQLAlchemy)
+SQLAlchemy==2.0.23
+
+# For form CSRF or sessions
+itsdangerous==2.1.2
+
+# If you use environment variables (optional)
+python-dotenv==1.0.0

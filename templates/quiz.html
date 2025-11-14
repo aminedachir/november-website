@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="quiz-start-section">
+    <div class="container">
+        <div class="quiz-header">
+            <h1>اختبار الثورة الجزائرية</h1>
+            <p>اختبر معلوماتك حول حرب الاستقلال الجزائرية</p>
+        </div>
+        
+        <div class="quiz-form-container">
+            <form method="POST" class="quiz-form">
+                <div class="form-group">
+                    <label for="first_name">الاسم الأول:</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="last_name">اسم العائلة:</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
+                
+                <div class="quiz-info">
+                    <h3>معلومات عن الاختبار:</h3>
+                    <ul>
+                        <li>📝 20 سؤالاً عن الثورة الجزائرية</li>
+                        <li>⏱️ مؤقت لكل سؤال - أجب بسرعة!</li>
+                        <li>🏆 احصل على نقاط عن كل إجابة صحيحة</li>
+                        <li>⚡ التصنيف يعتمد على النقاط ثم الوقت</li>
+                        <li>🎯 تعرف أكثر على تاريخ الجزائر</li>
+                    </ul>
+                </div>
+                
+                <button type="submit" class="start-quiz-btn">ابدأ الاختبار</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.quiz-start-section {
+    background: linear-gradient(135deg, #006233 0%, #009444 100%);
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+.quiz-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.quiz-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.quiz-header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.quiz-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #006233;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #006233;
+    box-shadow: 0 0 0 3px rgba(0,98,51,0.1);
+}
+
+.quiz-info {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+    border-right: 4px solid #006233;
+}
+
+.quiz-info h3 {
+    color: #006233;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.quiz-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quiz-info li {
+    padding: 8px 0;
+    color: #555;
+    font-size: 1.05em;
+}
+
+.start-quiz-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #006233, #009444);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,98,51,0.3);
+}
+
+.start-quiz-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,98,51,0.4);
+}
+</style>
+{% endblock %}

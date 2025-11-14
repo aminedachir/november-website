@@ -1,0 +1,408 @@
+<!-- six_members.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1>مجموعة الستّة</h1>
+            <h2>The Six Historic Members</h2>
+            <p class="hero-description">
+                الأعضاء المؤسسون الذين أشعلوا ثورة التحرير الجزائرية في الأول من نوفمبر 1954
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="members-section">
+    <div class="container">
+        <div class="section-intro">
+            <h2>مهندسو الثورة</h2>
+            <p>هؤلاء الرجال الستة الشجعان، ممثلين عن مختلف مناطق الجزائر، اجتمعوا لوضع خطة وتنفيذ الثورة التي غيرت مجرى التاريخ.</p>
+        </div>
+    </div>
+
+    <!-- Member 1 - Full Width -->
+    <div class="member-full-section" id="member1">
+        <div class="member-hero">
+            <div class="member-background" style="background-image: url('{{ url_for('static', filename='/images/six_members/benbol.jpeg') }}');"></div>
+            <div class="container">
+                <div class="member-header">
+                    <div class="member-number">01</div>
+                    <div class="member-titles">
+                        <h2>مصطفى بن بولعيد</h2>
+                        <h3>Mostefa Ben Boulaid</h3>
+                        <div class="member-region">منطقة الأوراس</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="member-content-full">
+            <div class="container">
+                <div class="content-grid">
+                    <div class="main-content">
+                        <div class="biography-section">
+                            <h4>السيرة الذاتية</h4>
+                            <p>مصطفى بن بولعيد (1917-1956) كان أحد المؤسسين الرئيسيين لجبهة التحرير الوطني ومنظمي ثورة التحرير الجزائرية. ولد في عرش آريس بجبال الأوراس، خدم في الجيش الفرنسي خلال الحرب العالمية الثانية قبل أن يصبح قائداً ثورياً.</p>
+                            <p>كان مسؤولاً عن المنطقة الأولى (الأوراس) ولعب دوراً حاسماً في النجاح المبكر للثورة. عرف باستراتيجيته العسكرية وقدراته القيادية، حيث أسس أولى مجموعات المقاومة في منطقة الأوراس.</p>
+                        </div>
+
+                        <div class="key-details">
+                            <div class="detail-grid">
+                                <div class="detail-card">
+                                    <h5>المولد والأصل</h5>
+                                    <p><strong>الميلاد:</strong> 5 فبراير 1917</p>
+                                    <p><strong>مكان الميلاد:</strong> آريس، ولاية باتنة</p>
+                                    <p><strong>المنطقة:</strong> جبال الأوراس</p>
+                                </div>
+                                <div class="detail-card">
+                                    <h5>الدور الثوري</h5>
+                                    <p><strong>المنصب:</strong> قائد المنطقة</p>
+                                    <p><strong>المنطقة:</strong> الأوراس (المنطقة 1)</p>
+                                    <p><strong>التخصص:</strong> الإستراتيجية العسكرية</p>
+                                </div>
+                                <div class="detail-card">
+                                    <h5>الأهمية التاريخية</h5>
+                                    <p><strong>الحالة:</strong> شهيد</p>
+                                    <p><strong>تاريخ الاستشهاد:</strong> 22 مارس 1956</p>
+                                    <p><strong>الإرث:</strong> بطل وطني</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="achievements-section">
+                            <h4>الإنجازات البارزة</h4>
+                            <ul>
+                                <li>تأسيس وتنظيم المقاومة في منطقة الأوراس</li>
+                                <li>التخطيط لهجمات 1 نوفمبر 1954 في منطقته</li>
+                                <li>إنشاء أول هيكل عسكري للثورة</li>
+                                <li>تدريب وتجهيز المجاهدين الأوائل</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="media-content">
+                        <div class="image-gallery">
+                            <div class="main-image">
+                                <img src="{{ url_for('static', filename='images/six_members/ben-boulaid.jpg') }}" alt="مصطفى بن بولعيد">
+                            </div>
+                            <div class="thumbnail-grid">
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/six_members/Benboulaid_young.jpg') }}" alt="بن بولعيد في الشباب">
+                                </div>
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/six_members/03.png') }}" alt="بن بولعيد مع المجاهدين">
+                                </div>
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/six_members/Benboulaid_buste.jpg') }}" alt="نصب تذكاري لبن بولعيد">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quick-facts">
+                            <h4>معلومات سريعة</h4>
+                            <div class="facts-list">
+                                <div class="fact-item">
+                                    <span class="fact-label">الكنية:</span>
+                                    <span class="fact-value">أبو الثورة</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">العمر عند الثورة:</span>
+                                    <span class="fact-value">37 سنة</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">المهنة:</span>
+                                    <span class="fact-value">عسكري سابق، ثوري</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">سبب الاستشهاد:</span>
+                                    <span class="fact-value">انفجار لغم</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Member 2 - Full Width -->
+    <div class="member-full-section" id="member2">
+        <div class="member-hero">
+            <div class="member-background" style="background-image: url('{{ url_for('static', filename='images/members/didouche-bg.jpg') }}');"></div>
+            <div class="container">
+                <div class="member-header">
+                    <div class="member-number">02</div>
+                    <div class="member-titles">
+                        <h2>مراد ديدوش</h2>
+                        <h3>Mourad Didouche</h3>
+                        <div class="member-region">منطقة الجزائر</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="member-content-full">
+            <div class="container">
+                <div class="content-grid">
+                    <div class="main-content">
+                        <div class="biography-section">
+                            <h4>السيرة الذاتية</h4>
+                            <p>مراد ديدوش (1927-1955) المعروف باسم "سي عبد القادر"، كان أحد أبرز مؤسسي الثورة وقائد منطقة الجزائر. ولد في حي القصبة بالعاصمة، ونشط في الحركة الوطنية منذ صغره.</p>
+                            <p>كان مسؤولاً عن تنظيم الهجمات في العاصمة والمناطق المحيطة بها، وعرف بشجاعته وتفانيه في القضية الوطنية. استشهد في معركة بوكركر في ولاية بومرداس.</p>
+                        </div>
+
+                        <div class="key-details">
+                            <div class="detail-grid">
+                                <div class="detail-card">
+                                    <h5>المولد والأصل</h5>
+                                    <p><strong>الميلاد:</strong> 13 يوليو 1927</p>
+                                    <p><strong>مكان الميلاد:</strong> القصبة، الجزائر العاصمة</p>
+                                    <p><strong>المنطقة:</strong> منطقة الجزائر</p>
+                                </div>
+                                <div class="detail-card">
+                                    <h5>الدور الثوري</h5>
+                                    <p><strong>المنصب:</strong> قائد المنطقة</p>
+                                    <p><strong>المنطقة:</strong> الجزائر (المنطقة 2)</p>
+                                    <p><strong>التخصص:</strong> التنظيم الحضري</p>
+                                </div>
+                                <div class="detail-card">
+                                    <h5>الأهمية التاريخية</h5>
+                                    <p><strong>الحالة:</strong> شهيد</p>
+                                    <p><strong>تاريخ الاستشهاد:</strong> 18 يناير 1955</p>
+                                    <p><strong>الإرث:</strong> أسطورة حية</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="achievements-section">
+                            <h4>الإنجازات البارزة</h4>
+                            <ul>
+                                <li>تنظيم الهجمات في العاصمة الجزائرية</li>
+                                <li>إنشاء الخلايا السرية في المدن</li>
+                                <li>التخطيط لعمليات نوعية ضد المستعمر</li>
+                                <li>تجنيد الشباب للثورة في المناطق الحضرية</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="media-content">
+                        <div class="image-gallery">
+                            <div class="main-image">
+                                <img src="{{ url_for('static', filename='images/members/didouche-1.jpg') }}" alt="مراد ديدوش">
+                            </div>
+                            <div class="thumbnail-grid">
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/members/didouche-2.jpg') }}" alt="ديدوش في الشباب">
+                                </div>
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/members/didouche-3.jpg') }}" alt="نصب تذكاري لديدوش">
+                                </div>
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/members/didouche-4.jpg') }}" alt="مكان استشهاد ديدوش">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quick-facts">
+                            <h4>معلومات سريعة</h4>
+                            <div class="facts-list">
+                                <div class="fact-item">
+                                    <span class="fact-label">الكنية:</span>
+                                    <span class="fact-value">سي عبد القادر</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">العمر عند الثورة:</span>
+                                    <span class="fact-value">27 سنة</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">المهنة:</span>
+                                    <span class="fact-value">مناضل، ثوري</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">سبب الاستشهاد:</span>
+                                    <span class="fact-value">معركة بوكركر</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Continue with similar structure for other 4 members -->
+    <!-- Member 3 - Mohamed Boudiaf -->
+    <div class="member-full-section" id="member3">
+        <div class="member-hero">
+            <div class="member-background" style="background-image: url('{{ url_for('static', filename='images/members/boudiaf-bg.jpg') }}');"></div>
+            <div class="container">
+                <div class="member-header">
+                    <div class="member-number">03</div>
+                    <div class="member-titles">
+                        <h2>محمد بوضياف</h2>
+                        <h3>Mohamed Boudiaf</h3>
+                        <div class="member-region">منطقة قسنطينة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="member-content-full">
+            <div class="container">
+                <div class="content-grid">
+                    <div class="main-content">
+                        <div class="biography-section">
+                            <h4>السيرة الذاتية</h4>
+                            <p>محمد بوضياف (1919-1992) كان أحد أبرز القادة السياسيين للثورة التحريرية. ولد في أولاد ماضي بالمسيلة، وانضم مبكراً إلى الحركة الوطنية وأسس مع رفاقه اللجنة الثورية للوحدة والعمل.</p>
+                            <p>اعتقل عام 1956 وظل في السجن حتى الاستقلال. بعد عودته إلى الجزائر عام 1992، ترأس المجلس الأعلى للدولة لكنه اغتيل بعد أشهر قليلة.</p>
+                        </div>
+
+                        <div class="key-details">
+                            <div class="detail-grid">
+                                <div class="detail-card">
+                                    <h5>المولد والأصل</h5>
+                                    <p><strong>الميلاد:</strong> 23 يونيو 1919</p>
+                                    <p><strong>مكان الميلاد:</strong> أولاد ماضي، المسيلة</p>
+                                    <p><strong>المنطقة:</strong> منطقة قسنطينة</p>
+                                </div>
+                                <div class="detail-card">
+                                    <h5>الدور الثوري</h5>
+                                    <p><strong>المنصب:</strong> القيادة السياسية</p>
+                                    <p><strong>المنطقة:</strong> قسنطينة (المنطقة 2)</p>
+                                    <p><strong>التخصص:</strong> العمل السياسي</p>
+                                </div>
+                                <div class="detail-card">
+                                    <h5>الأهمية التاريخية</h5>
+                                    <p><strong>الحالة:</strong> شهيد</p>
+                                    <p><strong>تاريخ الاستشهاد:</strong> 29 يونيو 1992</p>
+                                    <p><strong>الإرث:</strong> رمز النزاهة</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="achievements-section">
+                            <h4>الإنجازات البارزة</h4>
+                            <ul>
+                                <li>تأسيس اللجنة الثورية للوحدة والعمل</li>
+                                <li>المشاركة في الإعداد للثورة</li>
+                                <li>التمثيل السياسي للثورة</li>
+                                <li>محاربة الفساد بعد الاستقلال</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="media-content">
+                        <div class="image-gallery">
+                            <div class="main-image">
+                                <img src="{{ url_for('static', filename='images/members/boudiaf-1.jpg') }}" alt="محمد بوضياف">
+                            </div>
+                            <div class="thumbnail-grid">
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/members/boudiaf-2.jpg') }}" alt="بوضياف شاباً">
+                                </div>
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/members/boudiaf-3.jpg') }}" alt="بوضياف في المنفى">
+                                </div>
+                                <div class="thumbnail">
+                                    <img src="{{ url_for('static', filename='images/members/boudiaf-4.jpg') }}" alt>نصب تذكاري لبوضياف</div>
+                            </div>
+                        </div>
+
+                        <div class="quick-facts">
+                            <h4>معلومات سريعة</h4>
+                            <div class="facts-list">
+                                <div class="fact-item">
+                                    <span class="fact-label">الكنية:</span>
+                                    <span class="fact-value">سي الطيب</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">العمر عند الثورة:</span>
+                                    <span class="fact-value">35 سنة</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">المهنة:</span>
+                                    <span class="fact-value">سياسي، ثوري</span>
+                                </div>
+                                <div class="fact-item">
+                                    <span class="fact-label">فترة الاعتقال:</span>
+                                    <span class="fact-value">6 سنوات</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add similar sections for the remaining 3 members -->
+    <!-- You can follow the same pattern for Bitat, Ben M'hidi, and Krim Belkacem -->
+
+</section>
+
+<!-- Navigation between members -->
+<div class="members-navigation">
+    <div class="container">
+        <div class="nav-grid">
+            <a href="#member1" class="nav-item">
+                <span class="nav-number">01</span>
+                <span class="nav-name">بن بولعيد</span>
+            </a>
+            <a href="#member2" class="nav-item">
+                <span class="nav-number">02</span>
+                <span class="nav-name">ديدوش</span>
+            </a>
+            <a href="#member3" class="nav-item">
+                <span class="nav-number">03</span>
+                <span class="nav-name">بوضياف</span>
+            </a>
+            <a href="#member4" class="nav-item">
+                <span class="nav-number">04</span>
+                <span class="nav-name">بيطاط</span>
+            </a>
+            <a href="#member5" class="nav-item">
+                <span class="nav-number">05</span>
+                <span class="nav-name">بن مهيدي</span>
+            </a>
+            <a href="#member6" class="nav-item">
+                <span class="nav-number">06</span>
+                <span class="nav-name">كريم بلقاسم</span>
+            </a>
+        </div>
+        <div class="members-dropdown">
+            <button class="dropdown-toggle">
+                <span>اختر العضو</span>
+                <span class="arrow">▼</span>
+            </button>
+            <div class="dropdown-menu">
+                <a href="#member1" class="dropdown-item">
+                    <span class="dropdown-name">مصطفى بن بولعيد</span>
+                    <span class="dropdown-number">01</span>
+                </a>
+                <a href="#member2" class="dropdown-item">
+                    <span class="dropdown-name">مراد ديدوش</span>
+                    <span class="dropdown-number">02</span>
+                </a>
+                <a href="#member3" class="dropdown-item">
+                    <span class="dropdown-name">محمد بوضياف</span>
+                    <span class="dropdown-number">03</span>
+                </a>
+                <a href="#member4" class="dropdown-item">
+                    <span class="dropdown-name">رابح بيطاط</span>
+                    <span class="dropdown-number">04</span>
+                </a>
+                <a href="#member5" class="dropdown-item">
+                    <span class="dropdown-name">العربي بن مهيدي</span>
+                    <span class="dropdown-number">05</span>
+                </a>
+                <a href="#member6" class="dropdown-item">
+                    <span class="dropdown-name">كريم بلقاسم</span>
+                    <span class="dropdown-number">06</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

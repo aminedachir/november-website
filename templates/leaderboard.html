@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="leaderboard-section">
+    <div class="container">
+        <div class="leaderboard-header">
+            <h1>الترتيب </h1>
+            <p>أفضل المتفوقين في معرفة التاريخ الجزائري</p>
+            <div class="leaderboard-stats">
+                <span class="total-students">{{ total_students }} مشاركين</span>
+            </div>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="leaderboard-filters">
+            <form method="GET" class="search-form">
+                <input type="text" name="search" placeholder="ابحث يالاسم ...." value="{{ search }}" class="search-input">
+                <button type="submit" class="search-btn">بحث</button>
+                {% if search %}
+                <a href="{{ url_for('leaderboard') }}" class="clear-search">مسح</a>
+                {% endif %}
+            </form>
+        </div>
+
+        <div class="leaderboard-container">
+            {% if leaderboard %}
+            <div class="leaderboard-list">
+                {% for student in leaderboard %}
+                {% set global_rank = (page - 1) * 20 + loop.index %}
+                <div class="leaderboard-item {% if global_rank <= 3 %}podium{% endif %}">
+                    <div class="rank-number">
+                        {% if global_rank == 1 %}
+                        <span class="gold">🥇</span>
+                        {% elif global_rank == 2 %}
+                        <span class="silver">🥈</span>
+                        {% elif global_rank == 3 %}
+                        <span class="bronze">🥉</span>
+                        {% else %}
+                        <span class="rank">{{ global_rank }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="user-info">
+                        <span class="user-name">{{ student.first_name }} {{ student.last_name }}</span>
+                        <div class="user-details">
+                            <span class="score-detail">النقاط: {{ student.score }}/20</span>
+                            <span class="percentage-detail">{{ student.percentage|round|int }}%</span>
+                            <span class="date-detail">{{ student.timestamp[:10] }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="user-score">
+                        <span class="score"> نقاط  {{ student.score }}</span>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: {{ student.percentage }}%"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if total_pages > 1 %}
+            <div class="pagination">
+                {% if page > 1 %}
+                <a href="{{ url_for('leaderboard', page=page-1, search=search) }}" class="page-link">← السابق</a>
+                {% endif %}
+                
+                <span class="page-info">صفحة {{ page }} من {{ total_pages }}</span>
+                
+                {% if page < total_pages %}
+                <a href="{{ url_for('leaderboard', page=page+1, search=search) }}" class="page-link">التالي →</a>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            {% else %}
+            <div class="no-results">
+                <h3>لا يوجد</h3>
+                <p>{% if search %}لا يوجد مشارك بهدا الاسم "{{ search }}"{% else %}لا يوجد مشاركين حتى الان{% endif %}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="leaderboard-actions">
+            <a href="{{ url_for('quiz') }}" class="take-quiz-btn">حاول مجددا</a>
+            <a href="{{ url_for('index') }}" class="home-btn">الرئيسية</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

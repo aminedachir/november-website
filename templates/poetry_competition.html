@@ -1,0 +1,627 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="poetry-competition-container">
+    <div class="competition-header">
+        <h1>مسابقة الشعر والخاطرة</h1>
+        <p class="competition-description">
+            صوت لقصيدتك المفضلة عن ثورة أول نوفمبر المجيدة
+            <br>
+        </p>
+    </div>
+
+    {% if error %}
+    <div class="error-message">
+        <p>⚠️ {{ error }}</p>
+        {% if user_name %}
+        <p class="user-info">المستخدم: {{ user_name }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="voting-form-section">
+        <div class="voter-info-card">
+            {% if ask_name %}
+            <!-- Show name input form -->
+            <h3>معلومات الناخب</h3>
+            <p class="info-message">الرجاء إدخال اسمك أولاً للمتابعة</p>
+            <form method="POST" action="{{ url_for('save_user_info') }}">
+                <div class="form-group">
+                    <label for="first_name">الاسم الأول:</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">اللقب:</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
+                <button type="submit" class="continue-button">متابعة</button>
+            </form>
+            {% else %}
+            <!-- Show voting form -->
+            <h3>اختر قصيدتك المفضلة</h3>
+            {% if user_name %}
+            <p class="welcome-message">مرحباً، {{ user_name }}! 👋</p>
+            {% endif %}
+            
+            <form method="POST" id="votingForm">
+                <div class="contestants-grid">
+                    {% for contestant in contestants %}
+                    <div class="contestant-card" data-contestant-id="{{ contestant.id }}">
+                        <div class="card-corner-decoration"></div>
+                        <div class="contestant-header">
+                            <div class="contestant-avatar">
+                                <div class="avatar-circle">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div class="contestant-badge">متسابق</div>
+                            </div>
+                            <div class="contestant-info">
+                                <h3>{{ contestant.name }}</h3>
+                                <p class="contestant-class">{{ contestant.class }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="poem-preview">
+                            <div class="poem-icon">
+                                <i class="fas fa-feather-alt"></i>
+                            </div>
+                            <h4 class="poem-title">{{ contestant.poem_title }}</h4>
+                            <p class="poem-excerpt">{{ contestant.poem_excerpt }}</p>
+                        </div>
+                        
+                        <div class="vote-button-container">
+                            <button type="button" class="vote-button" onclick="selectContestant('{{ contestant.id }}')">
+                                <span class="vote-icon">
+                                    <i class="fas fa-vote-yea"></i>
+                                </span>
+                                <span class="vote-text">صوّت لهذا المتسابق</span>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <input type="hidden" id="contestant_id" name="contestant_id" required>
+                
+                <div class="submit-section" style="display: none;" id="submitSection">
+                    <div class="selection-confirmation">
+                        <i class="fas fa-check-circle"></i>
+                        <p class="selection-message">تم اختيار المتسابق بنجاح</p>
+                    </div>
+                    <button type="submit" class="submit-vote-button">
+                        <i class="fas fa-paper-plane"></i>
+                        تأكيد التصويت
+                    </button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="results-link">
+        <a href="{{ url_for('poetry_results') }}" class="view-results-button">
+            <i class="fas fa-chart-bar"></i>
+            عرض النتائج
+        </a>
+    </div>
+</div>
+
+<style>
+    .poetry-competition-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .competition-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: linear-gradient(135deg, #006233 0%, #009444 100%);
+        border-radius: 15px;
+        color: white;
+        box-shadow: 0 10px 30px rgba(0, 98, 51, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .competition-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+        z-index: 1;
+    }
+
+    .competition-header h1 {
+        font-size: 2.5em;
+        margin: 0 0 10px 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .competition-header h2 {
+        font-size: 1.5em;
+        margin: 0 0 15px 0;
+        opacity: 0.9;
+    }
+
+    .competition-description {
+        font-size: 1.1em;
+        line-height: 1.6;
+        margin: 20px 0 0 0;
+    }
+
+    .error-message {
+        background: #dc3545;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    .user-info {
+        margin-top: 10px;
+        font-weight: 600;
+    }
+
+    .info-message {
+        text-align: center;
+        color: #006233;
+        font-size: 1.1em;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .welcome-message {
+        text-align: center;
+        color: #006233;
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        font-weight: 600;
+        background: #d4edda;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 98, 51, 0.1);
+    }
+
+    .voter-info-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .voter-info-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #006233, #009444, #006233);
+    }
+
+    .voter-info-card h3 {
+        color: #006233;
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        text-align: center;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .voter-info-card h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #006233, #009444);
+        border-radius: 3px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #006233;
+        box-shadow: 0 0 0 3px rgba(0, 98, 51, 0.1);
+    }
+
+    .continue-button {
+        width: 100%;
+        background: linear-gradient(135deg, #006233, #009444);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        margin-top: 10px;
+        box-shadow: 0 5px 15px rgba(0, 98, 51, 0.3);
+    }
+
+    .continue-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,98,51,0.4);
+    }
+
+    .contestants-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        margin: 30px 0;
+    }
+
+    .contestant-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 20px;
+        padding: 25px;
+        transition: all 0.4s;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 98, 51, 0.1);
+    }
+
+    .contestant-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #006233, #009444);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s;
+    }
+
+    .contestant-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 98, 51, 0.2);
+    }
+
+    .contestant-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .contestant-card.selected {
+        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        box-shadow: 0 15px 35px rgba(40, 167, 69, 0.3);
+        border: 1px solid rgba(40, 167, 69, 0.3);
+    }
+
+    .contestant-card.selected::before {
+        transform: scaleX(1);
+        background: linear-gradient(90deg, #28a745, #20c997);
+    }
+
+    .card-corner-decoration {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, transparent 50%, rgba(0, 98, 51, 0.05) 50%);
+        border-radius: 0 20px 0 0;
+    }
+
+    .contestant-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        gap: 15px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .contestant-avatar {
+        position: relative;
+    }
+
+    .avatar-circle {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #006233, #009444);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 98, 51, 0.3);
+        transition: all 0.3s;
+    }
+
+    .contestant-card:hover .avatar-circle {
+        transform: scale(1.1);
+    }
+
+    .contestant-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ffd700;
+        color: #333;
+        font-size: 0.7em;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .contestant-info h3 {
+        margin: 0;
+        font-size: 1.3em;
+        color: #006233;
+        font-weight: 700;
+    }
+
+    .contestant-class {
+        margin: 5px 0 0 0;
+        color: #666;
+        font-size: 0.9em;
+        background: rgba(0, 98, 51, 0.05);
+        padding: 3px 10px;
+        border-radius: 10px;
+        display: inline-block;
+    }
+
+    .poem-preview {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        border-right: 4px solid #006233;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .poem-preview::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, #006233, #009444);
+    }
+
+    .poem-icon {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        color: rgba(0, 98, 51, 0.1);
+        font-size: 1.5em;
+    }
+
+    .poem-title {
+        color: #006233;
+        margin: 0 0 10px 0;
+        font-size: 1.1em;
+        font-weight: 600;
+        padding-right: 10px;
+    }
+
+    .poem-excerpt {
+        font-style: italic;
+        color: #555;
+        line-height: 1.6;
+        margin: 0;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .vote-button-container {
+        text-align: center;
+    }
+
+    .vote-button {
+        background: linear-gradient(135deg, #006233, #009444);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 5px 15px rgba(0, 98, 51, 0.3);
+    }
+
+    .vote-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,98,51,0.4);
+    }
+
+    .vote-icon {
+        font-size: 1.1em;
+    }
+
+    .vote-text {
+        flex-grow: 1;
+    }
+
+    .submit-section {
+        text-align: center;
+        margin-top: 30px;
+        padding: 25px;
+        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
+        border: 1px solid rgba(40, 167, 69, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .selection-confirmation {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .selection-confirmation i {
+        color: #28a745;
+        font-size: 1.5em;
+    }
+
+    .selection-message {
+        color: #28a745;
+        font-weight: 600;
+        margin: 0;
+        font-size: 1.1em;
+    }
+
+    .submit-vote-button {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 10px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        margin: 0 auto;
+    }
+
+    .submit-vote-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(40,167,69,0.4);
+    }
+
+    .results-link {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .view-results-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1em;
+        transition: all 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    }
+
+    .view-results-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,123,255,0.4);
+        color: white;
+        text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        .contestants-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .competition-header h1 {
+            font-size: 1.8em;
+        }
+
+        .competition-header h2 {
+            font-size: 1.2em;
+        }
+
+        .contestant-card {
+            padding: 20px;
+        }
+
+        .avatar-circle {
+            width: 60px;
+            height: 60px;
+            font-size: 25px;
+        }
+    }
+</style>
+
+<script>
+    let selectedContestantId = null;
+
+    function selectContestant(contestantId) {
+        // Remove selected class from all cards
+        document.querySelectorAll('.contestant-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+
+        // Add selected class to clicked card
+        event.target.closest('.contestant-card').classList.add('selected');
+
+        // Set the hidden input value
+        document.getElementById('contestant_id').value = contestantId;
+        selectedContestantId = contestantId;
+
+        // Show submit section
+        document.getElementById('submitSection').style.display = 'block';
+
+        // Scroll to submit button
+        document.getElementById('submitSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Form validation
+    const votingForm = document.getElementById('votingForm');
+    if (votingForm) {
+        votingForm.addEventListener('submit', function(e) {
+            if (!selectedContestantId) {
+                e.preventDefault();
+                alert('الرجاء اختيار متسابق قبل التصويت');
+            }
+        });
+    }
+</script>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}

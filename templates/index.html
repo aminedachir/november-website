@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1>الثورة التحريرية الجزائرية</h1>
+            <h2> حرب الجزائر من أجل الاستقلال 1954–1962</h2>
+            <p class="hero-description">
+                تحية إجلال للشهداء الشجعان الذين ضحّوا بكل شيء من أجل حرية الجزائر
+            </p>
+            <a href="{{ url_for('quiz') }}" class="cta-button">اختبر معلوماتك</a>
+        </div>
+    </div>
+</div>
+
+<section class="info-section">
+    <div class="container">
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>الأول من نوفمبر عام 1954</h3>
+                <p> بدأت حرب الاستقلال الجزائرية بهجمات منسّقة في أنحاء الجزائر، معلنةً بداية الثورة ضد الحكم الاستعماري الفرنسي.</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>جبهة التحرير الوطني</h3>
+                <p>كانت جبهة التحرير الوطني (Front de Libération Nationale) المنظمة الوطنية الرئيسية التي قادت الكفاح من أجل الاستقلال.</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>سبع سنوات ونصف من النضال</h3>
+                <p>استمرت الحرب لمدة سبع سنوات ونصف، وأسفرت عن استقلال الجزائر في الخامس من جويلية 1962.</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>مليون ونصف مليون شهيد</h3>
+                <p>ضحى ما يقارب مليون ونصف المليون جزائري بحياتهم من أجل حرية وطنهم.</p>
+            </div>
+        </div>
+
+        <div class="historical-facts">
+            <h2>أهم الحقائق التاريخية</h2>
+            <div class="facts-grid">
+                <div class="fact-item">
+                    <h4> بداية الثورة</h4>
+                    <p>الأول من نوفمبر عام 1954</p>
+                </div>
+                <div class="fact-item">
+                    <h4>المنظمة الرئيسية</h4>
+                    <p>جبهة التحرير الوطني (FLN)</p>
+                </div>
+                <div class="fact-item">
+                    <h4>الاستقلال</h4>
+                    <p> الخامس من جويلية عام 1962</p>
+                </div>
+                <div class="fact-item">
+                    <h4>الهدف</h4>
+                    <p>الاستقلال التام عن فرنسا</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-section">
+            <blockquote>
+                 "نحن مصممون على مواصلة الكفاح حتى يتحقق الهدف النهائي، وهو الاستقلال"
+                 <br>
+                <cite>إعلان الأول من نوفمبر 1954  </cite>
+            </blockquote>
+        </div>
+    </div>
+</section>
+{% endblock %}

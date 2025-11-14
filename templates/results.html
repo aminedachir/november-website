@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="results-section">
+    <div class="container">
+        <div class="results-header">
+            <h1>Quiz Results</h1>
+            <p class="participant-name">{{ first_name }} {{ last_name }}</p>
+        </div>
+        
+        <!-- Score and Rank Card -->
+        <div class="results-summary">
+            <div class="score-card">
+                <div class="score-circle" style="--score-percentage: {{ (score/total*100) }}%;">
+                    <span class="score-number">{{ score }}/{{ total }}</span>
+                    <span class="score-percentage">{{ (score/total*100)|round|int }}%</span>
+                </div>
+            </div>
+            
+            <div class="score-message">
+                {% if score >= 18 %}
+                <h3>ممتاز </h3>
+                <p>لديك معرفة ممتازة بالتاريخ الجزائري! أنت قائد ثورة حقيقي!</p>
+                {% elif score >= 14 %}
+                <h3>جيد جدا </h3>
+                <p>أنت تعرف الكثير عن الثورة الجزائرية! واصل التعلّم!</p>
+                {% elif score >= 10 %}
+                <h3>عمل رائع </h3>
+                <p>لديك فهم جيد للأساسيات. واصل استكشاف تاريخنا!</p>
+                {% else %}
+                <h3>حاول مجددا </h3>
+                <p>لا تيأس! ادرس المزيد عن الثورة الجزائرية وحاول مرة أخرى!</p>
+                {% endif %}
+                
+            </div>
+        </div>
+
+        <!-- Leaderboard Preview -->
+        <div class="leaderboard-preview">
+            <h2>المتصدرين</h2>
+            <div class="mini-leaderboard">
+                {% for student in leaderboard %}
+                <div class="mini-leaderboard-item {% if student.first_name == first_name and student.last_name == last_name %}current-user{% endif %}">
+                    <span class="mini-rank">#{{ loop.index }}</span>
+                    <span class="mini-name">{{ student.first_name }} {{ student.last_name }}</span>
+                    <span class="mini-score">{{ student.score }}/20</span>
+                    <span class="mini-percentage">{{ student.percentage|round|int }}%</span>
+                    
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{{ url_for('leaderboard') }}" class="view-full-leaderboard">اظهار كل القائمة</a>
+        </div>
+        
+        <!-- Answers Review -->
+        <div class="answers-review">
+            <h2>اجاباتك</h2>
+            {% for answer in answers %}
+            <div class="answer-item {% if answer.is_correct %}correct{% else %}incorrect{% endif %}">
+                <h4>Question {{ loop.index }}: {{ answer.question }}</h4>
+                <p>Your answer: {{ answer.user_answer }}</p>
+                {% if not answer.is_correct %}
+                <p class="correct-answer">Correct answer: {{ answer.correct_answer }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Results Actions -->
+        <div class="results-actions">
+            <a href="{{ url_for('restart') }}" class="retry-btn">حاول مججدا</a>
+            <a href="{{ url_for('leaderboard') }}" class="leaderboard-btn">قائمة المتصدرين</a>
+            <a href="{{ url_for('index') }}" class="home-btn">الرئيسية</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algerian War of Independence - 1st November Event</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-section">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Algerian Revolution Logo" class="site-logo">
+                <h1>ثورة أول نوفمبر</h1>
+                <h2>Algerian War of Independence</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">الرئيسية</a></li>
+                    <li><a href="{{ url_for('six_members') }}">مجموعة الستة</a></li>
+                    <li><a href="{{ url_for('quiz') }}">الاسئلة</a></li>
+                    <li><a href="{{ url_for('leaderboard') }}">قائمة المتصدرين</a></li>
+                    <li><a href="{{ url_for('poetry_competition') }}">التصويت</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; ذكرى الثورة الجزائرية 2024 – لن ننسى شهداءنا أبداً</p>
+            <div class="footer-colors">
+                <div class="color-box green"></div>
+                <div class="color-box white"></div>
+                <div class="color-box red"></div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Members dropdown functionality
+        function initMembersDropdown() {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            if (dropdownToggle && dropdownMenu) {
+                dropdownToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    dropdownMenu.classList.toggle('active');
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.members-dropdown')) {
+                        dropdownToggle.classList.remove('active');
+                        dropdownMenu.classList.remove('active');
+                    }
+                });
+                
+                const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+                dropdownItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        dropdownToggle.classList.remove('active');
+                        dropdownMenu.classList.remove('active');
+                    });
+                });
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initMembersDropdown);
+</script>
+</body>
+</html>

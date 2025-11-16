@@ -1884,9 +1884,9 @@ footer {
 .fact-item {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     direction: rtl;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -1895,10 +1895,6 @@ footer {
 
 .fact-item:hover {
     background: rgba(255, 255, 255, 0.2);
-}
-
-.fact-item:last-child {
-    border-bottom: none;
 }
 
 .fact-label {
